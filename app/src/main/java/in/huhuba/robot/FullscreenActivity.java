@@ -131,6 +131,8 @@ public class FullscreenActivity extends AppCompatActivity {
                     runNeutralAnimation();
                 } else if(Integer.valueOf(msg)==2) {
                     runExpectantAnimation();
+                } else if(Integer.valueOf(msg)==3) {
+                    runTurnAnimation();
                 }
             }
 
@@ -171,7 +173,7 @@ public class FullscreenActivity extends AppCompatActivity {
     }
 
 
-    AnimationDrawable neutralAnimation, expectantAnimation;
+    AnimationDrawable neutralAnimation, expectantAnimation, turnAnimation;
 
     private void runExpectantAnimation() {
         if(expectantAnimation!=null) {
@@ -180,6 +182,15 @@ public class FullscreenActivity extends AppCompatActivity {
         mContentView.setBackgroundResource(R.drawable.expectant_animation);
         expectantAnimation = (AnimationDrawable) mContentView.getBackground();
         expectantAnimation.start();
+    }
+
+    private void runTurnAnimation() {
+        if(turnAnimation!=null) {
+            turnAnimation.stop();
+        }
+        mContentView.setBackgroundResource(R.drawable.turn_animation);
+        turnAnimation = (AnimationDrawable) mContentView.getBackground();
+        turnAnimation.start();
     }
 
     private void runNeutralAnimation() {
@@ -215,44 +226,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         });
 
-
-        /*mContentView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                return true;
-            }
-        });
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //change image and toast
-                toggle();
-            }
-        });
-
-        final Handler h = new Handler();
-        final int delay = 1000; //milliseconds
-
-        h.postDelayed(new Runnable(){
-            public void run(){
-                //do something
-                int imageIndex = counter%EXPRESSION_NAMES.length;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mContentView.setImageDrawable(getDrawable(EXPRESSIONS[imageIndex]));
-                } else {
-                    mContentView.setImageDrawable(getResources().getDrawable(EXPRESSIONS[imageIndex]));
-                }
-                //Toast.makeText(sContext, EXPRESSION_NAMES[imageIndex], Toast.LENGTH_SHORT).show();
-                ++counter;
-                h.postDelayed(this, delay);
-            }
-        }, delay);*/
-
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
-        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
 
